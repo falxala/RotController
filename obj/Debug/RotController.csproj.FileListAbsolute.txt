@@ -1,0 +1,12 @@
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.csprojResolveAssemblyReference.cache
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.Form1.resources
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.Properties.Resources.resources
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.csproj.GenerateResource.cache
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.csproj.CoreCompileInputs.cache
+C:\Users\fortia\source\repos\RotController\RotController\bin\Debug\RotController.exe.config
+C:\Users\fortia\source\repos\RotController\RotController\bin\Debug\RotController.exe
+C:\Users\fortia\source\repos\RotController\RotController\bin\Debug\RotController.pdb
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.exe
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.pdb
+C:\Users\fortia\source\repos\RotController\RotController\bin\Debug\CoreAudioApi.dll
+C:\Users\fortia\source\repos\RotController\RotController\obj\Debug\RotController.csproj.CopyComplete
