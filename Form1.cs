@@ -198,7 +198,7 @@ namespace RotController
         int LmodIndex = 0;
         private void Set_ModifierKey()
         {
-            string[] comb = { "None", "Ctrl", "Alt", "Shift", "Win", "Ctrl + Shift", "Ctrl + Alt", "Shift + Alt" };
+            string[] comb = { "None", "Shift", "Ctrl", "Alt", "Win", "Ctrl + Shift", "Ctrl + Alt", "Shift + Alt", "Alt + Space" };
             Rmodifier_keyCmb.Items.Clear();
             Lmodifier_keyCmb.Items.Clear();
             for (int i = 0; i < comb.Length; i++)
@@ -253,62 +253,69 @@ namespace RotController
 
         private void connectButton_Click(object sender, EventArgs e)
         {
-            if (serialPort1.IsOpen == true)
+            try
             {
-                serialPort1.RtsEnable = false;
+                if (serialPort1.IsOpen == true)
+                {
+                    serialPort1.RtsEnable = false;
 
-                //! シリアルポートをクローズする.
-                serialPort1.Close();
-                notice_textBox.AppendText("SerialPort Close\r\n");
+                    //! シリアルポートをクローズする.
+                    serialPort1.Close();
+                    notice_textBox.AppendText("SerialPort Close\r\n");
 
-                //! ボタンの表示を[切断]から[接続]に変える.
-                connectButton.Text = "接続";
+                    //! ボタンの表示を[切断]から[接続]に変える.
+                    connectButton.Text = "接続";
+                }
+                else
+                {
+                    //! オープンするシリアルポートをコンボボックスから取り出す.
+                    if (com_match() == null)
+                        return;
+                    serialPort1.PortName = com_match().ToString();
+
+                    //! ボーレートをコンボボックスから取り出す.
+                    BuadRateItem baud = (BuadRateItem)cmbBaudRate.SelectedItem;
+                    serialPort1.BaudRate = baud.BAUDRATE;
+
+                    //! データビットをセットする. (データビット = 8ビット)
+                    serialPort1.DataBits = 8;
+
+                    //! パリティビットをセットする. (パリティビット = なし)
+                    serialPort1.Parity = Parity.None;
+
+                    //! ストップビットをセットする. (ストップビット = 1ビット)
+                    serialPort1.StopBits = StopBits.One;
+
+                    //! フロー制御をコンボボックスから取り出す.
+                    HandShakeItem ctrl = (HandShakeItem)cmbHandShake.SelectedItem;
+                    serialPort1.Handshake = ctrl.HANDSHAKE;
+
+                    //! 文字コードをセットする.
+                    //serialPort1.Encoding = Encoding.Unicode;
+                    serialPort1.Encoding = System.Text.Encoding.GetEncoding(0);
+
+                    try
+                    {
+                        if (RtsEnable_checkBox.Checked)
+                            serialPort1.RtsEnable = true;
+
+                        //! シリアルポートをオープンする.
+                        serialPort1.Open();
+
+                        //! ボタンの表示を[接続]から[切断]に変える.
+                        connectButton.Text = "切断";
+
+                        notice_textBox.AppendText("SerialPort Open\r\n");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
             }
-            else
+            catch (Exception)
             {
-                //! オープンするシリアルポートをコンボボックスから取り出す.
-                if (com_match() == null)
-                    return;
-                serialPort1.PortName = com_match().ToString();
 
-                //! ボーレートをコンボボックスから取り出す.
-                BuadRateItem baud = (BuadRateItem)cmbBaudRate.SelectedItem;
-                serialPort1.BaudRate = baud.BAUDRATE;
-
-                //! データビットをセットする. (データビット = 8ビット)
-                serialPort1.DataBits = 8;
-
-                //! パリティビットをセットする. (パリティビット = なし)
-                serialPort1.Parity = Parity.None;
-
-                //! ストップビットをセットする. (ストップビット = 1ビット)
-                serialPort1.StopBits = StopBits.One;
-
-                //! フロー制御をコンボボックスから取り出す.
-                HandShakeItem ctrl = (HandShakeItem)cmbHandShake.SelectedItem;
-                serialPort1.Handshake = ctrl.HANDSHAKE;
-
-                //! 文字コードをセットする.
-                //serialPort1.Encoding = Encoding.Unicode;
-                serialPort1.Encoding = System.Text.Encoding.GetEncoding(0);
-
-                try
-                {
-                    if (RtsEnable_checkBox.Checked)
-                        serialPort1.RtsEnable = true;
-
-                    //! シリアルポートをオープンする.
-                    serialPort1.Open();
-
-                    //! ボタンの表示を[接続]から[切断]に変える.
-                    connectButton.Text = "切断";
-
-                    notice_textBox.AppendText("SerialPort Open\r\n");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
             }
         }
 
@@ -402,13 +409,75 @@ namespace RotController
             }
         }
 
+        //0→R 1→L
+        private void KeyComb_Set()
+        {
+            Set_modifie(Rmodifier_keyCmb.SelectedIndex, 0);
+            Set_modifie(Lmodifier_keyCmb.SelectedIndex, 1);
+            KeyComb3[0] = Rshortcut_textBox.Text;
+            KeyComb3[1] = Lshortcut_textBox.Text;
+        }
+
+        private void Set_modifie(int Combination, int m)
+        {
+            switch (Combination)
+            {
+                case 0:
+                    KeyComb1[m] = 0x00;
+                    KeyComb2[m] = 0x00;
+                    break;
+                case 1:
+                    KeyComb1[m] = 0x10;
+                    KeyComb2[m] = 0x00;
+                    break;
+                case 2:
+                    KeyComb1[m] = 0x11;
+                    KeyComb2[m] = 0x00;
+                    break;
+                case 3:
+                    KeyComb1[m] = 0x12;
+                    KeyComb2[m] = 0x00;
+                    break;
+                case 4:
+                    KeyComb1[m] = 0x5b;
+                    KeyComb2[m] = 0x00;
+                    break;
+                case 5:
+                    KeyComb1[m] = 0x11;
+                    KeyComb2[m] = 0x10;
+                    break;
+                case 6:
+                    KeyComb1[m] = 0x11;
+                    KeyComb2[m] = 0x12;
+                    break;
+                case 7:
+                    KeyComb1[m] = 0x10;
+                    KeyComb2[m] = 0x12;
+                    break;
+                case 8:
+                    KeyComb1[m] = 0x12;
+                    KeyComb2[m] = 0x20;
+                    break;
+                default:
+                    KeyComb1[m] = 0x00;
+                    KeyComb2[m] = 0x00;
+                    break;
+            }
+        }
+
+
+
+        byte[] KeyComb1 = new byte[2];
+        byte[] KeyComb2 = new byte[2];
+        string[] KeyComb3 = new string[2];
+
         private void BehiberOfRrotated()
         {
             //SendKeys.SendWait("]");
 
             //DoublekeySim(0x11, 0x6B, true);
             //TriplekeySim(0xa4, 0x00, 0x09, true, 1000);
-            TriplekeySim(0x00, 0x00, "]", true, 10);
+            TriplekeySim(KeyComb1[0], KeyComb2[0], InputKeyClass.PickUp_Key(KeyComb3[0]), true, 50);
 
             //Volume.VolumeUP();
         }
@@ -419,7 +488,7 @@ namespace RotController
 
             //DoublekeySim(0x11, 0x6D, true);
             //TriplekeySim(0xa4, 0x10, 0x09, true, 1000);
-            TriplekeySim(0x00, 0x00, "[", true, 10);
+            TriplekeySim(KeyComb1[1], KeyComb2[1], InputKeyClass.PickUp_Key(KeyComb3[1]), true, 50);
             //Volume.VolumeDown();
 
         }
@@ -440,24 +509,57 @@ namespace RotController
                 keybd_event(meta, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
         }
 
-        private void TriplekeySim(byte meta1, byte meta2, string key, bool upf,int delay)
+        /// <summary>
+        /// 3キーのコンビネーションキーを押下
+        /// </summary>
+        /// <param name="meta1">修飾キー1</param>
+        /// <param name="meta2">修飾キー2</param>
+        /// <param name="key">任意のキー</param>
+        /// <param name="upf">開放を実行するか</param>
+        /// <param name="delay">押し込み状態維持時間</param>
+        private async void TriplekeySim(byte meta1, byte meta2, byte key, bool upf, int delay)
         {
             // キーの押し下げをシミュレートする。
             keybd_event(meta1, 0, 0, (UIntPtr)0);
             keybd_event(meta2, 0, 0, (UIntPtr)0);
-            System.Threading.Thread.Sleep(delay);
-            //keybd_event(key, 0, 0, (UIntPtr)0);
-            SendKeys.SendWait(key);
-
-            System.Threading.Thread.Sleep(delay);
+            await Task.Delay(1);
+            keybd_event(key, 0, 0, (UIntPtr)0);
 
             // キーの解放をシミュレートする。
-            //keybd_event(key, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+            keybd_event(key, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
             if (upf)
             {
                 keybd_event(meta1, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
                 keybd_event(meta2, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
             }
+        }
+
+        int AnyKey_flag = 0;
+        private void button3_Click(object sender, EventArgs e)
+        {
+            keyhook.Install();
+            AnyKey_flag = 1;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            keyhook.Install();
+            AnyKey_flag = 2;
+        }
+
+        void keyboardHook_KeyDown(RamGecTools.KeyboardHook.VKeys key)
+        {
+            if (AnyKey_flag == 1)
+            {
+                Rshortcut_textBox.Text = key.ToString();
+            }
+            if (AnyKey_flag == 2)
+            {
+                Lshortcut_textBox.Text = key.ToString();
+            }
+            AnyKey_flag = 0;
+            keyhook.Uninstall();
+            KeyComb_Set();
         }
 
         private void RtsEnable_checkBox_CheckedChanged(object sender, EventArgs e)
@@ -551,9 +653,7 @@ namespace RotController
 
         private async void Auto_Connect()
         {
-            await Task.Delay(1000);
             data_set();
-
             string[] PortList = null;
             //! 利用可能なシリアルポート名の配列を取得する.
             PortList = SerialPort.GetPortNames();
@@ -571,7 +671,7 @@ namespace RotController
                     LinkStatus_label.Text = "Connecting";
 
                     Serial_Connect(PortList[i], 38400, Handshake.None);
-                    await Task.Delay(100);
+                    await Task.Delay(10);
                     serialPort1.Write("R");
                     await Task.Delay(100);
 
@@ -580,12 +680,14 @@ namespace RotController
                     if (Rcv_buf != "6")//ACK：0x06(6)を受信しなければ切断
                     {
                         Serial_Connect(PortList[i], 38400, Handshake.None);
+                        notice_textBox.AppendText(PortList[i] + ": No response\r\n");
                     }
-                    await Task.Delay(100);
+
                     if (serialPort1.IsOpen == true)
                     {
                         LinkStatus_label.ForeColor = Color.Green;
                         LinkStatus_label.Text = "Connected";
+                        notice_textBox.AppendText(PortList[i] + ": Received an ACK\r\n");
 
                         if (FirstOpr_comboBox.SelectedIndex == 0)
                             serialPort1.Write("H");
@@ -641,6 +743,7 @@ namespace RotController
                     serialPort1.Open();
                     connectButton.Text = "切断";
                     notice_textBox.AppendText("SerialPort Open\r\n");
+                    portName_label.Text = COM;
                 }
                 catch (Exception ex)
                 {
@@ -655,13 +758,14 @@ namespace RotController
             {
                 LinkStatus_label.ForeColor = Color.Red;
                 LinkStatus_label.Text = "Disconnected";
+                portName_label.Text = "NONE";
                 operational_mode.Text = "Unknown";
             }
         }
 
         private async void PnpEvent(object sender, EventArgs e)
         {
-            await Task.Delay(750);
+            await Task.Delay(1000);
             if (serialPort1.IsOpen == false)
             {
                 Auto_Connect();
@@ -706,29 +810,6 @@ namespace RotController
                     break;
             }
             base.WndProc(ref m);
-        }
-
-
-        int AnyKey_flag = 0;
-        private void button3_Click(object sender, EventArgs e)
-        {
-            keyhook.Install();
-            AnyKey_flag = 1;
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            keyhook.Install();
-            AnyKey_flag = 2;
-        }
-
-        void keyboardHook_KeyDown(RamGecTools.KeyboardHook.VKeys key)
-        {
-            if (AnyKey_flag == 1)
-                Rshortcut_textBox.Text = key.ToString();
-            if (AnyKey_flag == 2)
-                Lshortcut_textBox.Text = key.ToString();
-            AnyKey_flag = 0;
         }
 
 

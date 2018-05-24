@@ -61,6 +61,8 @@
             this.Rshortcut_textBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.portName_label = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.LinkStatus_label = new System.Windows.Forms.Label();
@@ -150,7 +152,8 @@
             this.rcvTextBox.Location = new System.Drawing.Point(246, 34);
             this.rcvTextBox.Multiline = true;
             this.rcvTextBox.Name = "rcvTextBox";
-            this.rcvTextBox.Size = new System.Drawing.Size(412, 187);
+            this.rcvTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.rcvTextBox.Size = new System.Drawing.Size(412, 166);
             this.rcvTextBox.TabIndex = 7;
             // 
             // connectButton
@@ -179,7 +182,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(6, 92);
+            this.button1.Location = new System.Drawing.Point(11, 104);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(135, 31);
             this.button1.TabIndex = 10;
@@ -191,15 +194,15 @@
             // 
             this.operational_mode.AutoSize = true;
             this.operational_mode.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.operational_mode.Location = new System.Drawing.Point(116, 9);
+            this.operational_mode.Location = new System.Drawing.Point(112, 24);
             this.operational_mode.Name = "operational_mode";
-            this.operational_mode.Size = new System.Drawing.Size(58, 24);
+            this.operational_mode.Size = new System.Drawing.Size(82, 24);
             this.operational_mode.TabIndex = 11;
-            this.operational_mode.Text = "まーだ";
+            this.operational_mode.Text = "unknown";
             // 
             // Port_Update_Button
             // 
-            this.Port_Update_Button.Location = new System.Drawing.Point(9, 226);
+            this.Port_Update_Button.Location = new System.Drawing.Point(9, 230);
             this.Port_Update_Button.Name = "Port_Update_Button";
             this.Port_Update_Button.Size = new System.Drawing.Size(75, 26);
             this.Port_Update_Button.TabIndex = 12;
@@ -212,7 +215,7 @@
             this.AutoConnect_Button.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.AutoConnect_Button.Location = new System.Drawing.Point(90, 195);
             this.AutoConnect_Button.Name = "AutoConnect_Button";
-            this.AutoConnect_Button.Size = new System.Drawing.Size(75, 23);
+            this.AutoConnect_Button.Size = new System.Drawing.Size(75, 26);
             this.AutoConnect_Button.TabIndex = 13;
             this.AutoConnect_Button.Text = "自動接続";
             this.AutoConnect_Button.UseVisualStyleBackColor = true;
@@ -336,7 +339,7 @@
             this.FirstOpr_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FirstOpr_comboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.FirstOpr_comboBox.FormattingEnabled = true;
-            this.FirstOpr_comboBox.Location = new System.Drawing.Point(6, 202);
+            this.FirstOpr_comboBox.Location = new System.Drawing.Point(11, 202);
             this.FirstOpr_comboBox.Name = "FirstOpr_comboBox";
             this.FirstOpr_comboBox.Size = new System.Drawing.Size(147, 26);
             this.FirstOpr_comboBox.TabIndex = 30;
@@ -407,40 +410,62 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.portName_label);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.operational_mode);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.LinkStatus_label);
-            this.panel1.Location = new System.Drawing.Point(6, 19);
+            this.panel1.Location = new System.Drawing.Point(11, 19);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(287, 67);
+            this.panel1.Size = new System.Drawing.Size(287, 79);
             this.panel1.TabIndex = 23;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label16.Location = new System.Drawing.Point(3, 0);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(79, 24);
+            this.label16.TabIndex = 19;
+            this.label16.Text = "COMPort";
+            // 
+            // portName_label
+            // 
+            this.portName_label.AutoSize = true;
+            this.portName_label.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.portName_label.Location = new System.Drawing.Point(112, 0);
+            this.portName_label.Name = "portName_label";
+            this.portName_label.Size = new System.Drawing.Size(43, 24);
+            this.portName_label.TabIndex = 18;
+            this.portName_label.Text = "port";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(7, 9);
+            this.label4.Location = new System.Drawing.Point(3, 24);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(108, 24);
+            this.label4.Size = new System.Drawing.Size(52, 24);
             this.label4.TabIndex = 15;
-            this.label4.Text = "Mode        ：";
+            this.label4.Text = "Mode";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(7, 33);
+            this.label5.Location = new System.Drawing.Point(3, 48);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(107, 24);
+            this.label5.Size = new System.Drawing.Size(91, 24);
             this.label5.TabIndex = 16;
-            this.label5.Text = "LinkStatus：";
+            this.label5.Text = "LinkStatus";
             // 
             // LinkStatus_label
             // 
             this.LinkStatus_label.AutoSize = true;
             this.LinkStatus_label.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LinkStatus_label.Location = new System.Drawing.Point(116, 33);
+            this.LinkStatus_label.Location = new System.Drawing.Point(112, 48);
             this.LinkStatus_label.Name = "LinkStatus_label";
             this.LinkStatus_label.Size = new System.Drawing.Size(56, 24);
             this.LinkStatus_label.TabIndex = 17;
@@ -460,7 +485,7 @@
             // 
             this.Right_label.AutoSize = true;
             this.Right_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Right_label.Location = new System.Drawing.Point(557, 75);
+            this.Right_label.Location = new System.Drawing.Point(575, 75);
             this.Right_label.Name = "Right_label";
             this.Right_label.Size = new System.Drawing.Size(48, 23);
             this.Right_label.TabIndex = 21;
@@ -500,7 +525,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.Location = new System.Drawing.Point(158, 92);
+            this.button2.Location = new System.Drawing.Point(163, 104);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(135, 31);
             this.button2.TabIndex = 14;
@@ -536,7 +561,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label11.Location = new System.Drawing.Point(243, 230);
+            this.label11.Location = new System.Drawing.Point(244, 209);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 18);
             this.label11.TabIndex = 16;
@@ -556,10 +581,11 @@
             // 
             this.notice_textBox.BackColor = System.Drawing.SystemColors.HotTrack;
             this.notice_textBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.notice_textBox.Location = new System.Drawing.Point(246, 251);
+            this.notice_textBox.Location = new System.Drawing.Point(246, 230);
             this.notice_textBox.Multiline = true;
             this.notice_textBox.Name = "notice_textBox";
-            this.notice_textBox.Size = new System.Drawing.Size(412, 76);
+            this.notice_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.notice_textBox.Size = new System.Drawing.Size(412, 97);
             this.notice_textBox.TabIndex = 14;
             // 
             // Monitor_timer
@@ -634,6 +660,8 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.ComboBox Lmodifier_keyCmb;
         private System.Windows.Forms.ComboBox Rmodifier_keyCmb;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label portName_label;
     }
 }
 
