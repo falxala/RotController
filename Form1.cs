@@ -20,6 +20,9 @@ namespace RotController
         [DllImport("user32.dll")]
         public static extern uint keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
+        //キーボードフック
+        RamGecTools.KeyboardHook keyhook = new RamGecTools.KeyboardHook();
+
         /****************************************************************************/
         /*!
 		 *	@brief	ボーレート格納用のクラス定義.
@@ -80,10 +83,12 @@ namespace RotController
             }
         }
 
+
         public Form1()
         {
             InitializeComponent();
             RtsEnable_checkBox.Checked = true;
+            keyhook.KeyDown += new RamGecTools.KeyboardHook.KeyboardHookCallback(keyboardHook_KeyDown);
         }
 
         static public short DefBR = 2;//DefaultBuadRate
@@ -91,6 +96,8 @@ namespace RotController
         {
             cmbPortName.Items.Clear();
             cmbPortName.Text = "";
+
+            notice_textBox.AppendText("SerialPort Update\r\n");
 
             //シリアルポート名をセット
             var check_reg = new System.Text.RegularExpressions.Regex("(COM[1-9][0-9]?[0-9]?)");//正規表現
@@ -102,6 +109,12 @@ namespace RotController
             {
                 //Nameプロパティを取得
                 var namePropertyValue = manageObj.GetPropertyValue("Name");
+                var CaptionPropertyValue = manageObj.GetPropertyValue("PNPDeviceID");
+                /*
+                 * PowerShell
+                 * Get-WmiObject -Class Win32_SerialPort
+                 */
+
                 if (namePropertyValue == null)
                 {
                     continue;
@@ -181,6 +194,22 @@ namespace RotController
 
         }
 
+        int RmodIndex = 0;
+        int LmodIndex = 0;
+        private void Set_ModifierKey()
+        {
+            string[] comb = { "None", "Ctrl", "Alt", "Shift", "Win", "Ctrl + Shift", "Ctrl + Alt", "Shift + Alt" };
+            Rmodifier_keyCmb.Items.Clear();
+            Lmodifier_keyCmb.Items.Clear();
+            for (int i = 0; i < comb.Length; i++)
+            {
+                Rmodifier_keyCmb.Items.Add(comb[i]);
+                Lmodifier_keyCmb.Items.Add(comb[i]);
+            }
+            Rmodifier_keyCmb.SelectedIndex = RmodIndex;
+            Lmodifier_keyCmb.SelectedIndex = LmodIndex;
+        }
+
 
         int default_mode = 0;
         private void Form1_Load(object sender, EventArgs e)
@@ -188,12 +217,12 @@ namespace RotController
             connectButton.Text = "接続";
 
             data_set();
+            Set_ModifierKey();
             Auto_Connect();
             Monitor_timer.Start();
             FirstOpr_comboBox.Items.Add("Hardware");
             FirstOpr_comboBox.Items.Add("Software");
             FirstOpr_comboBox.SelectedIndex = default_mode;
-
         }
 
         /// <summary>
@@ -211,11 +240,11 @@ namespace RotController
                 return m;
             }
             else//エラー処理
-            {/*
+            {
                 MessageBox.Show("利用可能なポートがありません。",
                 "エラー",
                  MessageBoxButtons.OK,
-                 MessageBoxIcon.Error);*/
+                 MessageBoxIcon.Error);
 
             }
             return null;
@@ -230,6 +259,7 @@ namespace RotController
 
                 //! シリアルポートをクローズする.
                 serialPort1.Close();
+                notice_textBox.AppendText("SerialPort Close\r\n");
 
                 //! ボタンの表示を[切断]から[接続]に変える.
                 connectButton.Text = "接続";
@@ -272,6 +302,8 @@ namespace RotController
 
                     //! ボタンの表示を[接続]から[切断]に変える.
                     connectButton.Text = "切断";
+
+                    notice_textBox.AppendText("SerialPort Open\r\n");
                 }
                 catch (Exception ex)
                 {
@@ -343,22 +375,12 @@ namespace RotController
                 {
                     if (data == "R")
                     {
-                        //SendKeys.SendWait("]");
-
-                        doublekeySim(0x11, 0x6B, true);
-
-                        //Volume.VolumeUP();
-
+                        BehiberOfRrotated();
                         Right_label.ForeColor = Color.Red;
                     }
                     if (data == "L")
                     {
-                        //SendKeys.SendWait("[");
-
-                        doublekeySim(0x11, 0x6D, true);
-
-                        //Volume.VolumeDown();
-
+                        BehiberOfLrotated();
                         Left_label.ForeColor = Color.Red;
                     }
 
@@ -380,8 +402,30 @@ namespace RotController
             }
         }
 
+        private void BehiberOfRrotated()
+        {
+            //SendKeys.SendWait("]");
+
+            //DoublekeySim(0x11, 0x6B, true);
+            //TriplekeySim(0xa4, 0x00, 0x09, true, 1000);
+            TriplekeySim(0x00, 0x00, "]", true, 10);
+
+            //Volume.VolumeUP();
+        }
+
+        private void BehiberOfLrotated()
+        {
+            //SendKeys.SendWait("[");
+
+            //DoublekeySim(0x11, 0x6D, true);
+            //TriplekeySim(0xa4, 0x10, 0x09, true, 1000);
+            TriplekeySim(0x00, 0x00, "[", true, 10);
+            //Volume.VolumeDown();
+
+        }
+
         //http://edutainment-fun.com/hidemaru/microsoft/%E3%82%AD%E3%83%BC%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%83%88%E9%80%81%E4%BF%A1%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81%E3%80%90c%E3%80%91%E3%80%90%E8%A6%9A%E6%9B%B8%E3%83%A1%E3%83%A2%E3%80%91_2535.html
-        private void doublekeySim(byte meta, byte key, bool upf)
+        private void DoublekeySim(byte meta, byte key, bool upf)
         {
             // キーの押し下げをシミュレートする。
             keybd_event(meta, 0, 0, (UIntPtr)0);
@@ -394,6 +438,26 @@ namespace RotController
             keybd_event(key, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
             if (upf)
                 keybd_event(meta, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+        }
+
+        private void TriplekeySim(byte meta1, byte meta2, string key, bool upf,int delay)
+        {
+            // キーの押し下げをシミュレートする。
+            keybd_event(meta1, 0, 0, (UIntPtr)0);
+            keybd_event(meta2, 0, 0, (UIntPtr)0);
+            System.Threading.Thread.Sleep(delay);
+            //keybd_event(key, 0, 0, (UIntPtr)0);
+            SendKeys.SendWait(key);
+
+            System.Threading.Thread.Sleep(delay);
+
+            // キーの解放をシミュレートする。
+            //keybd_event(key, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+            if (upf)
+            {
+                keybd_event(meta1, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+                keybd_event(meta2, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+            }
         }
 
         private void RtsEnable_checkBox_CheckedChanged(object sender, EventArgs e)
@@ -446,8 +510,9 @@ namespace RotController
             //! シリアルポートをオープンしていない場合、処理を行わない.
             if (serialPort1.IsOpen == false)
             {
-                LinkStatus_label.Text = "切断";
-                operational_mode.Text = "不明";
+                LinkStatus_label.ForeColor = Color.Red;
+                LinkStatus_label.Text = "Disconnected";
+                operational_mode.Text = "Unknown";
                 return;
             }
 
@@ -486,9 +551,10 @@ namespace RotController
 
         private async void Auto_Connect()
         {
+            await Task.Delay(1000);
             data_set();
 
-            string[] PortList;
+            string[] PortList = null;
             //! 利用可能なシリアルポート名の配列を取得する.
             PortList = SerialPort.GetPortNames();
 
@@ -501,7 +567,8 @@ namespace RotController
                     if (serialPort1.IsOpen == true)
                         return;
 
-                    LinkStatus_label.Text = "接続試行中";
+                    LinkStatus_label.ForeColor = Color.OrangeRed;
+                    LinkStatus_label.Text = "Connecting";
 
                     Serial_Connect(PortList[i], 38400, Handshake.None);
                     await Task.Delay(100);
@@ -517,7 +584,8 @@ namespace RotController
                     await Task.Delay(100);
                     if (serialPort1.IsOpen == true)
                     {
-                        LinkStatus_label.Text = "接続済み";
+                        LinkStatus_label.ForeColor = Color.Green;
+                        LinkStatus_label.Text = "Connected";
 
                         if (FirstOpr_comboBox.SelectedIndex == 0)
                             serialPort1.Write("H");
@@ -532,7 +600,7 @@ namespace RotController
             }
             if (serialPort1.IsOpen == false)
             {
-                operational_mode.Text = "不明";
+                operational_mode.Text = "Unknown";
             }
         }
 
@@ -550,6 +618,7 @@ namespace RotController
 
                 //! シリアルポートをクローズする.
                 serialPort1.Close();
+                notice_textBox.AppendText("SerialPort Close\r\n");
 
                 //! ボタンの表示を[切断]から[接続]に変える.
                 connectButton.Text = "接続";
@@ -571,10 +640,11 @@ namespace RotController
                         serialPort1.RtsEnable = true;
                     serialPort1.Open();
                     connectButton.Text = "切断";
+                    notice_textBox.AppendText("SerialPort Open\r\n");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    notice_textBox.AppendText(ex.Message);
                 }
             }
         }
@@ -583,16 +653,20 @@ namespace RotController
         {
             if (serialPort1.IsOpen == false)
             {
-                LinkStatus_label.Text = "切断";
-                operational_mode.Text = "不明";
+                LinkStatus_label.ForeColor = Color.Red;
+                LinkStatus_label.Text = "Disconnected";
+                operational_mode.Text = "Unknown";
             }
         }
 
         private async void PnpEvent(object sender, EventArgs e)
         {
-            await Task.Delay(500);
-            if (SerialPort.GetPortNames().Length != 0)
+            await Task.Delay(750);
+            if (serialPort1.IsOpen == false)
+            {
                 Auto_Connect();
+
+            }
         }
 
 
@@ -602,16 +676,71 @@ namespace RotController
             WM_DEVICECHANGE = 0x0219,
         }
 
+        private enum DBT
+        {
+            DBT_DEVICEARRIVAL = 0x8000,
+            DBT_DEVICEQUERYREMOVE = 0x8001,
+            DBT_DEVICEQUERYREMOVEFAILED = 0x8002,
+            DBT_DEVICEREMOVEPENDING = 0x8003,
+            DBT_DEVICEREMOVECOMPLETE = 0x8004,
+        }
+
+
         //USBデバイスが接続されたときにPnpEventを発生
         protected override void WndProc(ref Message m)
         {
             switch ((WINDOW_MESSAGES)m.Msg)
             {
                 case WINDOW_MESSAGES.WM_DEVICECHANGE:
-                    PnpEvent(this, EventArgs.Empty);
+
+                    switch ((DBT)m.WParam.ToInt32())
+                    {
+                        case DBT.DBT_DEVICEARRIVAL:
+                            //ドライブが装着された時の処理を書く
+                            PnpEvent(this, EventArgs.Empty);
+                            break;
+                        case DBT.DBT_DEVICEREMOVECOMPLETE:
+                            //ドライブが取り外されたされた時の処理を書く
+                            break;
+                    }
                     break;
             }
             base.WndProc(ref m);
         }
+
+
+        int AnyKey_flag = 0;
+        private void button3_Click(object sender, EventArgs e)
+        {
+            keyhook.Install();
+            AnyKey_flag = 1;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            keyhook.Install();
+            AnyKey_flag = 2;
+        }
+
+        void keyboardHook_KeyDown(RamGecTools.KeyboardHook.VKeys key)
+        {
+            if (AnyKey_flag == 1)
+                Rshortcut_textBox.Text = key.ToString();
+            if (AnyKey_flag == 2)
+                Lshortcut_textBox.Text = key.ToString();
+            AnyKey_flag = 0;
+        }
+
+
+        private void Lshortcut_textBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Rshortcut_textBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
