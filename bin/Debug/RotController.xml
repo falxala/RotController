@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<temp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <mode>1</mode>
+  <key>
+    <string>0</string>
+    <string>RIGHT</string>
+    <string>0</string>
+    <string>LEFT</string>
+  </key>
+</temp>

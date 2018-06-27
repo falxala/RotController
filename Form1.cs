@@ -12,11 +12,23 @@ using System.Management;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Runtime.InteropServices; // DLL Import
+using System.IO;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace RotController
 {
     public partial class Form1 : Form
     {
+        static public int mode = 0;
+        static public string[] key = { "0", "NONE", "0", "NONE" };
+
+        private string aplTitle = null; // アプリ名
+        private string exeFile = null;  // exeファイル名
+        private string jsFile = null;   // スクリプトファイル名
+        private string lnkFile = null;  // リンク名
+        private bool frmLoadFlg = false; // Form1ロード済みか
+
         [DllImport("user32.dll")]
         public static extern uint keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
@@ -87,8 +99,27 @@ namespace RotController
         public Form1()
         {
             InitializeComponent();
+            //設定読み込み
+            Settings.Read();
+            //設定適用
+            set_config();
+            Shortcut_Initialization();
+
             RtsEnable_checkBox.Checked = true;
             keyhook.KeyDown += new RamGecTools.KeyboardHook.KeyboardHookCallback(keyboardHook_KeyDown);
+        }
+
+        public void set_config()
+        {
+            RmodIndex = int.Parse(key[0]);
+            Rshortcut_textBox.Text = key[1];
+            KeyComb3[0] = key[1];
+            LmodIndex = int.Parse(key[2]);
+            Lshortcut_textBox.Text = key[3];
+            KeyComb3[1] = key[3];
+            Set_modifie(RmodIndex, 0);
+            Set_modifie(LmodIndex, 1);
+
         }
 
         static public short DefBR = 2;//DefaultBuadRate
@@ -210,8 +241,6 @@ namespace RotController
             Lmodifier_keyCmb.SelectedIndex = LmodIndex;
         }
 
-
-        int default_mode = 0;
         private void Form1_Load(object sender, EventArgs e)
         {
             connectButton.Text = "接続";
@@ -222,7 +251,12 @@ namespace RotController
             Monitor_timer.Start();
             FirstOpr_comboBox.Items.Add("Hardware");
             FirstOpr_comboBox.Items.Add("Software");
-            FirstOpr_comboBox.SelectedIndex = default_mode;
+            FirstOpr_comboBox.SelectedIndex = mode;
+
+            WindowState = FormWindowState.Minimized;
+            ShowInTaskbar = false;
+            this.Hide();
+            notifyIcon1.Visible = true;
         }
 
         /// <summary>
@@ -369,7 +403,7 @@ namespace RotController
                     operational_mode.Text = "Hardware";
                     Ctrl_MODDE = 0;
                 }
-                else if (Regex.IsMatch(data, @"Software"))
+                if (Regex.IsMatch(data, @"Software"))
                 {
                     operational_mode.Text = "Software";
                     Ctrl_MODDE = 1;
@@ -537,12 +571,14 @@ namespace RotController
         int AnyKey_flag = 0;
         private void button3_Click(object sender, EventArgs e)
         {
+            Rshortcut_textBox.Focus();
             keyhook.Install();
             AnyKey_flag = 1;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            Lshortcut_textBox.Focus();
             keyhook.Install();
             AnyKey_flag = 2;
         }
@@ -596,13 +632,20 @@ namespace RotController
                     this.Invoke((MethodInvoker)(() => this.Close()));
                 });
                 tryCloseThread.Start();
+
+                // トレイリストのアイコンを非表示にする
+                notifyIcon1.Visible = false;
             }
+
+            // トレイリストのアイコンを非表示にする
+            notifyIcon1.Visible = false;
         }
 
         int Ctrl_MODDE = 0;//操作デバイスの動作モード 0;ハードウェア 1:ソフトウェア
         private void button1_Click(object sender, EventArgs e)
         {
             Mode_Change();
+            panel2.Focus();
         }
 
         private void Mode_Change()
@@ -673,7 +716,7 @@ namespace RotController
                     Serial_Connect(PortList[i], 38400, Handshake.None);
                     await Task.Delay(10);
                     serialPort1.Write("R");
-                    await Task.Delay(100);
+                    await Task.Delay(10);
 
                     if (Ctrl_MODDE == 1) Ctrl_MODDE = 0; else Ctrl_MODDE = 1;
 
@@ -688,7 +731,6 @@ namespace RotController
                         LinkStatus_label.ForeColor = Color.Green;
                         LinkStatus_label.Text = "Connected";
                         notice_textBox.AppendText(PortList[i] + ": Received an ACK\r\n");
-
                         if (FirstOpr_comboBox.SelectedIndex == 0)
                             serialPort1.Write("H");
                         else
@@ -812,16 +854,220 @@ namespace RotController
             base.WndProc(ref m);
         }
 
+        private void Shortcut_Initialization()
+        {
+            // プロジェクト＞プロパティ＞アセンブリ情報　で指定した「タイトル」を取得
+            var assembly = Assembly.GetExecutingAssembly();
+            var attribute = Attribute.GetCustomAttribute(
+              assembly,
+              typeof(AssemblyTitleAttribute)
+            ) as AssemblyTitleAttribute;
+            aplTitle = attribute.Title;
+            this.Text = aplTitle;
 
-        private void Lshortcut_textBox_TextChanged(object sender, EventArgs e)
+            // 自身のexeファイル名を取得
+            exeFile = Path.GetFileName(Application.ExecutablePath);
+
+            // WSHスクリプト名
+            jsFile = Directory.GetParent(Application.ExecutablePath) + "\\addStartup.js";
+
+            // ショートカットのリンク名
+            String sMnu = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+            lnkFile = sMnu + "\\" + aplTitle + ".lnk";
+
+            // [スタートアップ]フォルダのパスをコンソールに表示
+            Console.Write(Environment.GetFolderPath(Environment.SpecialFolder.Startup));
+
+            // スタートアップ有無
+            checkBox1.Checked = File.Exists(lnkFile);
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
 
+            if (checkBox1.Checked)
+            {
+                // スタートアップフォルダにショートカット作成
+                //https://dobon.net/vb/dotnet/file/createshortcut.html
+                try
+                {
+                    // スタートアップにショートカット作成
+                    if (!File.Exists(lnkFile))
+                    {
+                        //作成するショートカットのパス
+                        string shortcutPath = lnkFile;
+                        //ショートカットのリンク先
+                        string targetPath = Application.ExecutablePath;
+
+                        //WshShellを作成
+                        Type t = Type.GetTypeFromCLSID(new Guid("72C24DD5-D70A-438B-8A42-98424B88AFB8"));
+                        dynamic shell = Activator.CreateInstance(t);
+
+                        //WshShortcutを作成
+                        var shortcut = shell.CreateShortcut(shortcutPath);
+
+                        //リンク先
+                        shortcut.TargetPath = targetPath;
+                        //アイコンのパス
+                        shortcut.IconLocation = Application.ExecutablePath + ",0";
+                        //その他のプロパティも同様に設定できるため、省略
+
+                        //ショートカットを作成
+                        shortcut.Save();
+
+                        //後始末
+                        System.Runtime.InteropServices.Marshal.FinalReleaseComObject(shortcut);
+                        System.Runtime.InteropServices.Marshal.FinalReleaseComObject(shell);
+
+                        // スタートアップフォルダに登録されたか確認
+                        if (File.Exists(lnkFile))
+                        {
+                            MessageBox.Show(
+                                "スタートアップに登録しました。\n\n" + lnkFile,
+                                aplTitle,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show(
+                                "スタートアップへの登録に失敗しました。\n\n" + lnkFile,
+                                aplTitle,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        "スタートアップへの登録に失敗しました。\n\n" + ex.Message,
+                        aplTitle,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                // スタートアップフォルダに登録済みか確認
+                if (File.Exists(lnkFile))
+                {
+                    try
+                    {
+                        File.Delete(lnkFile);
+                        MessageBox.Show(
+                            "スタートアップから削除しました。",
+                            aplTitle,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+                    }
+                    catch (IOException ex)
+                    {
+                        MessageBox.Show(
+                            "スタートアップからの削除に失敗しました。\n\n" + ex.Message,
+                            aplTitle,
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                    }
+                }
+            }
+
+            // スタートアップ有無
+            checkBox1.Checked = File.Exists(lnkFile);
+
+            /*
+            if (checkBox1.Checked == true)
+            {
+                //Runキーを開く
+                Microsoft.Win32.RegistryKey regkey =
+                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                    @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                //値の名前に製品名、値のデータに実行ファイルのパスを指定し、書き込む
+                regkey.SetValue(Application.ProductName, Application.ExecutablePath);
+                //閉じる
+                regkey.Close();
+                startup = true;
+            }
+            else
+            {
+                del_reg();
+                startup = false;
+            }
+            */
+        }
+
+        /*
+        private void del_reg()
+        {
+            //Runキーを開く
+            Microsoft.Win32.RegistryKey regkey =
+                Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                @"Software\Microsoft\Windows\CurrentVersion\Run", true);
+            //キーの削除
+            regkey.DeleteValue(Application.ProductName, false);
+            //閉じる
+            regkey.Close();
+        }
+        */
+
+        private void FirstOpr_comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mode = FirstOpr_comboBox.SelectedIndex;
+        }
+
+        private void Rmodifier_keyCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            key[0] = Rmodifier_keyCmb.SelectedIndex.ToString();
         }
 
         private void Rshortcut_textBox_TextChanged(object sender, EventArgs e)
         {
-
+            key[1] = Rshortcut_textBox.Text;
         }
 
+        private void Lmodifier_keyCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            key[2] = Lmodifier_keyCmb.SelectedIndex.ToString();
+        }
+
+        private void Lshortcut_textBox_TextChanged(object sender, EventArgs e)
+        {
+            key[3] = Lshortcut_textBox.Text;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Settings.Write();
+        }
+
+        private void Form1_ClientSizeChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == System.Windows.Forms.FormWindowState.Minimized)
+            {
+                // フォームが最小化の状態であればフォームを非表示にする
+                this.Hide();
+                // トレイリストのアイコンを表示する
+                notifyIcon1.Visible = true;
+            }
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            // フォームを表示する
+            this.Visible = true;
+            // 現在の状態が最小化の状態であれば通常の状態に戻す
+            if (this.WindowState == FormWindowState.Minimized)
+            {
+                this.WindowState = FormWindowState.Normal;
+            }
+            ShowInTaskbar = true;
+            // フォームをアクティブにする
+            this.Activate();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
