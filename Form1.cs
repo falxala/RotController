@@ -908,6 +908,9 @@ namespace RotController
 
                         //リンク先
                         shortcut.TargetPath = targetPath;
+
+                        shortcut.WorkingDirectory = Application.StartupPath;
+
                         //アイコンのパス
                         shortcut.IconLocation = Application.ExecutablePath + ",0";
                         //その他のプロパティも同様に設定できるため、省略
