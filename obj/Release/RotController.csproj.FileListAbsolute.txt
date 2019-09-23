@@ -1,0 +1,14 @@
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.csprojAssemblyReference.cache
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.Form1.resources
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.Properties.Resources.resources
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.csproj.GenerateResource.cache
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.csproj.CoreCompileInputs.cache
+D:\fortia\Documents\GitHub\RotController\bin\Release\RotController.exe.config
+D:\fortia\Documents\GitHub\RotController\bin\Release\RotController.exe
+D:\fortia\Documents\GitHub\RotController\bin\Release\RotController.pdb
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.exe
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.pdb
+D:\fortia\Documents\GitHub\RotController\bin\Release\RotController.exe.manifest
+D:\fortia\Documents\GitHub\RotController\bin\Release\RotController.application
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.exe.manifest
+D:\fortia\Documents\GitHub\RotController\obj\Release\RotController.application

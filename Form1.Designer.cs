@@ -45,6 +45,8 @@
             this.AutoConnect_Button = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Left_label = new System.Windows.Forms.Label();
+            this.Right_label = new System.Windows.Forms.Label();
             this.Minimize = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.operational_mode = new System.Windows.Forms.Label();
@@ -61,8 +63,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.Lshortcut_textBox = new System.Windows.Forms.TextBox();
             this.Rshortcut_textBox = new System.Windows.Forms.TextBox();
-            this.Left_label = new System.Windows.Forms.Label();
-            this.Right_label = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.RotR = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -77,20 +77,20 @@
             this.label10 = new System.Windows.Forms.Label();
             this.notice_textBox = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.Comb_ThemeColor = new System.Windows.Forms.ComboBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.FirstOpr_comboBox = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.Monitor_timer = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.表示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.Comb_ThemeColor = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -240,11 +240,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Location = new System.Drawing.Point(-5, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(685, 375);
+            this.tabControl1.Size = new System.Drawing.Size(698, 375);
             this.tabControl1.TabIndex = 14;
             // 
             // tabPage1
@@ -273,9 +272,29 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(677, 349);
+            this.tabPage1.Size = new System.Drawing.Size(690, 349);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
+            // 
+            // Left_label
+            // 
+            this.Left_label.AutoSize = true;
+            this.Left_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Left_label.Location = new System.Drawing.Point(303, 84);
+            this.Left_label.Name = "Left_label";
+            this.Left_label.Size = new System.Drawing.Size(84, 46);
+            this.Left_label.TabIndex = 22;
+            this.Left_label.Text = "Counter\r\nClockWise";
+            // 
+            // Right_label
+            // 
+            this.Right_label.AutoSize = true;
+            this.Right_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Right_label.Location = new System.Drawing.Point(575, 84);
+            this.Right_label.Name = "Right_label";
+            this.Right_label.Size = new System.Drawing.Size(84, 23);
+            this.Right_label.TabIndex = 21;
+            this.Right_label.Text = "ClockWise";
             // 
             // Minimize
             // 
@@ -450,26 +469,6 @@
             this.Rshortcut_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Rshortcut_textBox.TextChanged += new System.EventHandler(this.Rshortcut_textBox_TextChanged);
             // 
-            // Left_label
-            // 
-            this.Left_label.AutoSize = true;
-            this.Left_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Left_label.Location = new System.Drawing.Point(309, 84);
-            this.Left_label.Name = "Left_label";
-            this.Left_label.Size = new System.Drawing.Size(84, 46);
-            this.Left_label.TabIndex = 22;
-            this.Left_label.Text = "Counter\r\nClockWise";
-            // 
-            // Right_label
-            // 
-            this.Right_label.AutoSize = true;
-            this.Right_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Right_label.Location = new System.Drawing.Point(571, 94);
-            this.Right_label.Name = "Right_label";
-            this.Right_label.Size = new System.Drawing.Size(84, 23);
-            this.Right_label.TabIndex = 21;
-            this.Right_label.Text = "ClockWise";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -493,8 +492,8 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.BackgroundImage = global::RotController.Properties.Resources.イラスト3;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.InitialImage = null;
             this.pictureBox1.Location = new System.Drawing.Point(293, 19);
@@ -524,7 +523,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(677, 349);
+            this.tabPage2.Size = new System.Drawing.Size(690, 349);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Serial";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -632,15 +631,38 @@
             this.tabPage3.Controls.Add(this.button2);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.FirstOpr_comboBox);
-            this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Controls.Add(this.checkBox1);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(677, 349);
+            this.tabPage3.Size = new System.Drawing.Size(690, 349);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Setting";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label18.Location = new System.Drawing.Point(10, 155);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(80, 18);
+            this.label18.TabIndex = 46;
+            this.label18.Text = "アプリの配色";
+            // 
+            // Comb_ThemeColor
+            // 
+            this.Comb_ThemeColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Comb_ThemeColor.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Comb_ThemeColor.FormattingEnabled = true;
+            this.Comb_ThemeColor.Items.AddRange(new object[] {
+            "WHITE",
+            "BLACK"});
+            this.Comb_ThemeColor.Location = new System.Drawing.Point(13, 176);
+            this.Comb_ThemeColor.Name = "Comb_ThemeColor";
+            this.Comb_ThemeColor.Size = new System.Drawing.Size(147, 26);
+            this.Comb_ThemeColor.TabIndex = 45;
+            this.Comb_ThemeColor.SelectedIndexChanged += new System.EventHandler(this.Comb_ThemeColor_SelectedIndexChanged);
             // 
             // button6
             // 
@@ -658,7 +680,7 @@
             // 
             this.button2.BackColor = System.Drawing.Color.Transparent;
             this.button2.Font = new System.Drawing.Font("メイリオ", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button2.Location = new System.Drawing.Point(6, 267);
+            this.button2.Location = new System.Drawing.Point(12, 242);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(149, 52);
             this.button2.TabIndex = 43;
@@ -670,7 +692,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label8.Location = new System.Drawing.Point(5, 59);
+            this.label8.Location = new System.Drawing.Point(10, 76);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(164, 18);
             this.label8.TabIndex = 42;
@@ -681,30 +703,21 @@
             this.FirstOpr_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FirstOpr_comboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.FirstOpr_comboBox.FormattingEnabled = true;
-            this.FirstOpr_comboBox.Location = new System.Drawing.Point(8, 80);
+            this.FirstOpr_comboBox.Location = new System.Drawing.Point(13, 97);
             this.FirstOpr_comboBox.Name = "FirstOpr_comboBox";
             this.FirstOpr_comboBox.Size = new System.Drawing.Size(148, 26);
             this.FirstOpr_comboBox.TabIndex = 41;
             this.FirstOpr_comboBox.SelectedIndexChanged += new System.EventHandler(this.FirstOpr_comboBox_SelectedIndexChanged);
             // 
-            // label9
-            // 
-            this.label9.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label9.Location = new System.Drawing.Point(187, 59);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(219, 79);
-            this.label9.TabIndex = 40;
-            this.label9.Text = "※ハードウェアモードでは音量操作が規定です．\r\nソフトウェアモードにて動作を変更することが出来ます．";
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.checkBox1.Location = new System.Drawing.Point(8, 22);
+            this.checkBox1.Location = new System.Drawing.Point(13, 22);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(195, 22);
+            this.checkBox1.Size = new System.Drawing.Size(175, 22);
             this.checkBox1.TabIndex = 39;
-            this.checkBox1.Text = "コンピュータ起動時に実行する";
+            this.checkBox1.Text = "Windows起動時に実行する";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -724,14 +737,22 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.表示ToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(94, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            // 
+            // 表示ToolStripMenuItem
+            // 
+            this.表示ToolStripMenuItem.Name = "表示ToolStripMenuItem";
+            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.表示ToolStripMenuItem.Text = "RotController";
+            this.表示ToolStripMenuItem.Click += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -753,30 +774,6 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(134, 18);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // Comb_ThemeColor
-            // 
-            this.Comb_ThemeColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Comb_ThemeColor.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Comb_ThemeColor.FormattingEnabled = true;
-            this.Comb_ThemeColor.Items.AddRange(new object[] {
-            "WHITE",
-            "BLACK"});
-            this.Comb_ThemeColor.Location = new System.Drawing.Point(8, 169);
-            this.Comb_ThemeColor.Name = "Comb_ThemeColor";
-            this.Comb_ThemeColor.Size = new System.Drawing.Size(147, 26);
-            this.Comb_ThemeColor.TabIndex = 45;
-            this.Comb_ThemeColor.SelectedIndexChanged += new System.EventHandler(this.Comb_ThemeColor_SelectedIndexChanged);
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label18.Location = new System.Drawing.Point(5, 148);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(80, 18);
-            this.label18.TabIndex = 46;
-            this.label18.Text = "アプリの配色";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -784,6 +781,7 @@
             this.ClientSize = new System.Drawing.Size(685, 375);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(701, 414);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -833,7 +831,6 @@
         private System.Windows.Forms.Label Right_label;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label RotR;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox Lshortcut_textBox;
@@ -862,7 +859,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox FirstOpr_comboBox;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -872,6 +868,8 @@
         private System.Windows.Forms.ComboBox Comb_ThemeColor;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ToolStripMenuItem 表示ToolStripMenuItem;
     }
 }
 

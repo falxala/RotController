@@ -72,6 +72,16 @@ namespace RotController.Properties {
         }
         
         /// <summary>
+        ///   (アイコン) に類似した型 System.Drawing.Icon のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Icon db82a4f4018e0a6eaeac7f4cf7e28066_xxo {
+            get {
+                object obj = ResourceManager.GetObject("db82a4f4018e0a6eaeac7f4cf7e28066_xxo", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   ソフトウェアが起動されました に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Status1 {
@@ -117,7 +127,7 @@ namespace RotController.Properties {
         }
         
         /// <summary>
-        ///   デバイスはハードウェアで制御されています に類似しているローカライズされた文字列を検索します。
+        ///   デバイスはハードウェアによって制御されています に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Status6 {
             get {
@@ -126,11 +136,21 @@ namespace RotController.Properties {
         }
         
         /// <summary>
-        ///   デバイスはソフトウェアで制御されています に類似しているローカライズされた文字列を検索します。
+        ///   デバイスはソフトウェアによって制御されています に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Status7 {
             get {
                 return ResourceManager.GetString("Status7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap イラスト3 {
+            get {
+                object obj = ResourceManager.GetObject("イラスト3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }
