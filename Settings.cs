@@ -24,6 +24,7 @@ namespace RotController
             temp obj = new temp();
             obj.mode = Form1.mode;
             obj.key = Form1.key;
+            obj.color = Form1.color;
 
 
             //XmlSerializerオブジェクトを作成
@@ -66,6 +67,7 @@ namespace RotController
 
                     Form1.mode = obj.mode;
                     Form1.key = obj.key;
+                    Form1.color = obj.color;
 
                 }
                 catch (Exception)
@@ -89,6 +91,7 @@ namespace RotController
         {
             public int mode;
             public string[] key;
+            public int color;
         }
     }
 }

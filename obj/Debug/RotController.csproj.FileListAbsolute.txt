@@ -41,3 +41,14 @@ C:\Users\fortia\Documents\Visual Studio 2017\Projects\RotController\RotControlle
 C:\Users\fortia\Documents\Visual Studio 2017\Projects\RotController\RotController\obj\Debug\RotController.exe
 C:\Users\fortia\Documents\Visual Studio 2017\Projects\RotController\RotController\obj\Debug\RotController.pdb
 C:\Users\fortia\Documents\Visual Studio 2017\Projects\RotController\RotController\obj\Debug\RotController.csprojResolveAssemblyReference.cache
+D:\fortia\Documents\GitHub\RotController\bin\Debug\RotController.exe.config
+D:\fortia\Documents\GitHub\RotController\bin\Debug\RotController.exe
+D:\fortia\Documents\GitHub\RotController\bin\Debug\RotController.pdb
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.csprojAssemblyReference.cache
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.Form1.resources
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.Properties.Resources.resources
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.csproj.GenerateResource.cache
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.csproj.CoreCompileInputs.cache
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.csproj.CopyComplete
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.exe
+D:\fortia\Documents\GitHub\RotController\obj\Debug\RotController.pdb

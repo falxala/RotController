@@ -22,6 +22,7 @@ namespace RotController
     {
         static public int mode = 0;
         static public string[] key = { "0", "NONE", "0", "NONE" };
+        static public int color = 0;
 
         private string aplTitle = null; // アプリ名
         private string exeFile = null;  // exeファイル名
@@ -107,6 +108,7 @@ namespace RotController
 
             RtsEnable_checkBox.Checked = true;
             keyhook.KeyDown += new RamGecTools.KeyboardHook.KeyboardHookCallback(keyboardHook_KeyDown);
+            Status_view(Properties.Resources.Status1);
         }
 
         public void set_config()
@@ -119,10 +121,12 @@ namespace RotController
             KeyComb3[1] = key[3];
             Set_modifie(RmodIndex, 0);
             Set_modifie(LmodIndex, 1);
+            Comb_ThemeColor.SelectedIndex = color;
+            Change_Theme();
 
         }
 
-        static public short DefBR = 2;//DefaultBuadRate
+        static public short DefBR = 4;//DefaultBuadRate
         public void data_set()//各コンボボックスに値をセットする
         {
             cmbPortName.Items.Clear();
@@ -229,7 +233,7 @@ namespace RotController
         int LmodIndex = 0;
         private void Set_ModifierKey()
         {
-            string[] comb = { "None", "Shift", "Ctrl", "Alt", "Win", "Ctrl + Shift", "Ctrl + Alt", "Shift + Alt", "Alt + Space" };
+            string[] comb = { "None", "Shift", "Ctrl", "Alt", "Win", "Ctrl + Shift", "Ctrl + Alt", "Alt + Shift", "Alt + Space", "Alt + Tab" };
             Rmodifier_keyCmb.Items.Clear();
             Lmodifier_keyCmb.Items.Clear();
             for (int i = 0; i < comb.Length; i++)
@@ -402,11 +406,13 @@ namespace RotController
                 {
                     operational_mode.Text = "Hardware";
                     Ctrl_MODDE = 0;
+                    Status_view(Properties.Resources.Status6);
                 }
                 if (Regex.IsMatch(data, @"Software"))
                 {
                     operational_mode.Text = "Software";
                     Ctrl_MODDE = 1;
+                    Status_view(Properties.Resources.Status7);
                 }
 
             }
@@ -438,8 +444,7 @@ namespace RotController
                 }));
                 await task;
                 await Task.Delay(200);
-                Right_label.ForeColor = Color.Black;
-                Left_label.ForeColor = Color.Black;
+                Right_label.ForeColor = Left_label.ForeColor= Color.FromArgb(color*255, color * 255, color * 255);
             }
         }
 
@@ -491,6 +496,10 @@ namespace RotController
                 case 8:
                     KeyComb1[m] = 0x12;
                     KeyComb2[m] = 0x20;
+                    break;
+                case 9:
+                    KeyComb1[m] = 0x12;
+                    KeyComb2[m] = 0x09;
                     break;
                 default:
                     KeyComb1[m] = 0x00;
@@ -569,18 +578,20 @@ namespace RotController
         }
 
         int AnyKey_flag = 0;
-        private void button3_Click(object sender, EventArgs e)
+        private void RightKey_Click(object sender, EventArgs e)
         {
             Rshortcut_textBox.Focus();
             keyhook.Install();
             AnyKey_flag = 1;
+            Status_view(Properties.Resources.Status3);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void LeftKey_Click(object sender, EventArgs e)
         {
             Lshortcut_textBox.Focus();
             keyhook.Install();
             AnyKey_flag = 2;
+            Status_view(Properties.Resources.Status4);
         }
 
         void keyboardHook_KeyDown(RamGecTools.KeyboardHook.VKeys key)
@@ -696,6 +707,7 @@ namespace RotController
 
         private async void Auto_Connect()
         {
+
             data_set();
             string[] PortList = null;
             //! 利用可能なシリアルポート名の配列を取得する.
@@ -794,7 +806,7 @@ namespace RotController
             }
         }
 
-        private void LinkMonitor_time_Tick(object sender, EventArgs e)
+        private void LinkMonitor_timer_Tick(object sender, EventArgs e)
         {
             if (serialPort1.IsOpen == false)
             {
@@ -925,11 +937,13 @@ namespace RotController
                         // スタートアップフォルダに登録されたか確認
                         if (File.Exists(lnkFile))
                         {
+                            Status_view(Properties.Resources.Status5);
                             MessageBox.Show(
                                 "スタートアップに登録しました。\n\n" + lnkFile,
                                 aplTitle,
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Information);
+                                
                         }
                         else
                         {
@@ -978,40 +992,8 @@ namespace RotController
             // スタートアップ有無
             checkBox1.Checked = File.Exists(lnkFile);
 
-            /*
-            if (checkBox1.Checked == true)
-            {
-                //Runキーを開く
-                Microsoft.Win32.RegistryKey regkey =
-                    Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
-                    @"Software\Microsoft\Windows\CurrentVersion\Run", true);
-                //値の名前に製品名、値のデータに実行ファイルのパスを指定し、書き込む
-                regkey.SetValue(Application.ProductName, Application.ExecutablePath);
-                //閉じる
-                regkey.Close();
-                startup = true;
-            }
-            else
-            {
-                del_reg();
-                startup = false;
-            }
-            */
         }
 
-        /*
-        private void del_reg()
-        {
-            //Runキーを開く
-            Microsoft.Win32.RegistryKey regkey =
-                Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
-                @"Software\Microsoft\Windows\CurrentVersion\Run", true);
-            //キーの削除
-            regkey.DeleteValue(Application.ProductName, false);
-            //閉じる
-            regkey.Close();
-        }
-        */
 
         private void FirstOpr_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1038,9 +1020,11 @@ namespace RotController
             key[3] = Lshortcut_textBox.Text;
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void Save_Click(object sender, EventArgs e)
         {
             Settings.Write();
+            Status_view(Properties.Resources.Status2);
+            Change_Theme();
         }
 
         private void Form1_ClientSizeChanged(object sender, EventArgs e)
@@ -1071,6 +1055,92 @@ namespace RotController
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        /// <summary>
+        /// ステータスを5秒間表示します
+        /// </summary>
+        /// <param name="str"></param>
+        async private void Status_view(string str)
+        {
+            toolStripStatusLabel1.Text = str;
+            await Task.Delay(5000);
+            toolStripStatusLabel1.Text = "";
+        }
+
+
+        /// <summary>
+        ///Copyright 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Copyright(object sender, EventArgs e)
+        {
+            Form form2 = new Form();
+            form2.Text = "Copyright";
+            TextBox CR = new TextBox();
+            CR.Name = "CR";
+            CR.Text = Properties.Resources.Copyright;
+            CR.Multiline = true;
+            CR.Dock = DockStyle.Fill;
+            CR.ScrollBars = ScrollBars.Vertical;
+            CR.Font = new System.Drawing.Font("Meiryo", 12,System.Drawing.FontStyle.Regular | 
+                System.Drawing.FontStyle.Regular,System.Drawing.GraphicsUnit.Point, 128);
+            form2.Size = new Size(640, 360);
+            form2.StartPosition = FormStartPosition.CenterScreen;
+            form2.Controls.Add(CR);
+            form2.ShowDialog(this);
+            form2.Dispose();
+        }
+
+        private void Minimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void Change_Theme()
+        {
+            if (color == 0)
+            {
+                BackColor = Color.White;
+                ForeColor = Color.Black;
+                foreach (Control c in this.tabControl1.Controls)
+                {
+                    c.BackColor = Color.White;
+                    c.ForeColor = Color.Black;
+                    foreach (Control c2 in c.Controls)
+                    {
+                        c2.BackColor = Color.White;
+                        c2.ForeColor = Color.Black;
+                    }
+                }
+                statusStrip1.BackColor = Color.White;
+                statusStrip1.ForeColor = Color.Black;
+                label17.ForeColor = Color.Red;
+            }
+            else if(color == 1)
+            {
+                BackColor = Color.Black;
+                ForeColor = Color.White;
+                foreach (Control c in this.tabControl1.Controls)
+                {
+                        c.BackColor = Color.Black;
+                        c.ForeColor = Color.White;
+                    foreach (Control c2 in c.Controls)
+                    {
+                        c2.BackColor = Color.Black;
+                        c2.ForeColor = Color.White;
+                    }
+                }
+                statusStrip1.BackColor = Color.Black;
+                statusStrip1.ForeColor = Color.White;
+                label17.ForeColor = Color.Red;
+            }
+        }
+
+        private void Comb_ThemeColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            color = Comb_ThemeColor.SelectedIndex;
         }
     }
 }
