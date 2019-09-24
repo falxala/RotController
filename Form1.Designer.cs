@@ -210,7 +210,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(276, 124);
             this.button1.TabIndex = 10;
-            this.button1.Text = "MODE CHANGE ";
+            this.button1.Text = "CHANGE MODE ";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -740,19 +740,19 @@
             this.表示ToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(145, 48);
             // 
             // 表示ToolStripMenuItem
             // 
             this.表示ToolStripMenuItem.Name = "表示ToolStripMenuItem";
-            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.表示ToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.表示ToolStripMenuItem.Text = "RotController";
             this.表示ToolStripMenuItem.Click += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
