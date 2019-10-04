@@ -21,7 +21,7 @@ namespace RotController
         {
 
             //保存するクラスのインスタンスを作成
-            temp obj = new temp();
+            Config obj = new Config();
             obj.mode = Form1.mode;
             obj.key = Form1.key;
             obj.color = Form1.color;
@@ -30,7 +30,7 @@ namespace RotController
             //XmlSerializerオブジェクトを作成
             //オブジェクトの型を指定する
             System.Xml.Serialization.XmlSerializer serializer =
-            new System.Xml.Serialization.XmlSerializer(typeof(temp));
+            new System.Xml.Serialization.XmlSerializer(typeof(Config));
             //書き込むファイルを開く（UTF-8 BOM無し）
             System.IO.StreamWriter sw = new System.IO.StreamWriter(
                 fileName, false, new System.Text.UTF8Encoding(false));
@@ -51,15 +51,15 @@ namespace RotController
                 //MessageBox.Show("'" + fileName + "'は存在します。");
                 //XmlSerializerオブジェクトを作成
                 System.Xml.Serialization.XmlSerializer serializer =
-                    new System.Xml.Serialization.XmlSerializer(typeof(temp));
+                    new System.Xml.Serialization.XmlSerializer(typeof(Config));
                 //読み込むファイルを開く
                 System.IO.StreamReader sr = new System.IO.StreamReader(
                     fileName, new System.Text.UTF8Encoding(false));
                 //XMLファイルから読み込み、逆シリアル化する
-                temp obj = null;
+                Config obj = null;
                 try
                 {
-                    obj = (temp)serializer.Deserialize(sr);
+                    obj = (Config)serializer.Deserialize(sr);
 
 
                     //ファイルを閉じる
@@ -72,9 +72,8 @@ namespace RotController
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show("設定ファイルが破損しています", "ERROR");
-                    Application.Exit();
-                    Environment.Exit(0);
+                    sr.Close();
+                    MessageBox.Show("設定ファイルが破損しています\r\n再保存で修復されます", "ERROR");                    
                 }
 
             }
@@ -87,10 +86,13 @@ namespace RotController
         }
 
 
-        public class temp
+        public class Config
         {
+            [System.Xml.Serialization.XmlElement("動作モード")]
             public int mode;
+            [System.Xml.Serialization.XmlElement("キープリセット1")]
             public string[] key;
+            [System.Xml.Serialization.XmlElement("アプリケーション配色")]
             public int color;
         }
     }

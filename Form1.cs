@@ -28,7 +28,6 @@ namespace RotController
         private string exeFile = null;  // exeファイル名
         private string jsFile = null;   // スクリプトファイル名
         private string lnkFile = null;  // リンク名
-        private bool frmLoadFlg = false; // Form1ロード済みか
 
         [DllImport("user32.dll")]
         public static extern uint keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
@@ -126,7 +125,7 @@ namespace RotController
 
         }
 
-        static public short DefBR = 4;//DefaultBuadRate
+        static public short DefBR = 5;//DefaultBuadRate
         public void data_set()//各コンボボックスに値をセットする
         {
             cmbPortName.Items.Clear();
@@ -173,6 +172,11 @@ namespace RotController
 
             // ボーレート選択コンボボックスに選択項目をセットする.
             BuadRateItem baud;
+
+            baud = new BuadRateItem();
+            baud.NAME = "1200bps(リセット用)";
+            baud.BAUDRATE = 1200;
+            cmbBaudRate.Items.Add(baud);
 
             baud = new BuadRateItem();
             baud.NAME = "9600bps";
@@ -370,13 +374,13 @@ namespace RotController
 
             try
             {
-                //! 受信データを読み込む.
+                //受信データを読み込む.
                 string data = serialPort1.ReadExisting();
 
-                //フォームがアクティブ場合のみ
+                //フォームがアクティブの場合のみ
                 if (Form.ActiveForm == this)
                 {
-                    //! 受信したデータをテキストボックスに書き込む.
+                    //!受信したデータをテキストボックスに書き込む.
                     Invoke(new Delegate_RcvDataToTextBox(RcvDataToTextBox), new Object[] { data });
                 }
                 Invoke(new Delegate_RcvDataToTextBox(RcvData), new Object[] { data });
@@ -423,22 +427,26 @@ namespace RotController
                     if (data == "R")
                     {
                         BehiberOfRrotated();
-                        Right_label.ForeColor = Color.Red;
+                        if (WindowState != FormWindowState.Minimized)
+                            Right_label.ForeColor = Color.Red;
                     }
                     if (data == "L")
                     {
                         BehiberOfLrotated();
-                        Left_label.ForeColor = Color.Red;
+                        if (WindowState != FormWindowState.Minimized)
+                            Left_label.ForeColor = Color.Red;
                     }
 
                     if (data == "Right\r\n")
                     {
-                        Right_label.ForeColor = Color.Red;
+                        if (WindowState != FormWindowState.Minimized)
+                            Right_label.ForeColor = Color.Red;
                     }
 
                     if (data == "Left\r\n")
                     {
-                        Left_label.ForeColor = Color.Red;
+                        if (WindowState != FormWindowState.Minimized)
+                            Left_label.ForeColor = Color.Red;
                     }
 
                 }));
@@ -516,24 +524,14 @@ namespace RotController
 
         private void BehiberOfRrotated()
         {
-            //SendKeys.SendWait("]");
-
-            //DoublekeySim(0x11, 0x6B, true);
-            //TriplekeySim(0xa4, 0x00, 0x09, true, 1000);
+            Active_Window(null,null);
             TriplekeySim(KeyComb1[0], KeyComb2[0], InputKeyClass.PickUp_Key(KeyComb3[0]), true, 50);
-
-            //Volume.VolumeUP();
         }
 
         private void BehiberOfLrotated()
         {
-            //SendKeys.SendWait("[");
-
-            //DoublekeySim(0x11, 0x6D, true);
-            //TriplekeySim(0xa4, 0x10, 0x09, true, 1000);
+            Active_Window(null, null);
             TriplekeySim(KeyComb1[1], KeyComb2[1], InputKeyClass.PickUp_Key(KeyComb3[1]), true, 50);
-            //Volume.VolumeDown();
-
         }
 
         //http://edutainment-fun.com/hidemaru/microsoft/%E3%82%AD%E3%83%BC%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%83%88%E9%80%81%E4%BF%A1%E3%81%AE%E3%81%BE%E3%81%A8%E3%82%81%E3%80%90c%E3%80%91%E3%80%90%E8%A6%9A%E6%9B%B8%E3%83%A1%E3%83%A2%E3%80%91_2535.html
@@ -562,36 +560,45 @@ namespace RotController
         /// <param name="delay">押し込み状態維持時間</param>
         private async void TriplekeySim(byte meta1, byte meta2, byte key, bool upf, int delay)
         {
-            // キーの押し下げをシミュレートする。
-            keybd_event(meta1, 0, 0, (UIntPtr)0);
-            keybd_event(meta2, 0, 0, (UIntPtr)0);
-            await Task.Delay(1);
-            keybd_event(key, 0, 0, (UIntPtr)0);
-
-            // キーの解放をシミュレートする。
-            keybd_event(key, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
-            if (upf)
+            try
             {
-                keybd_event(meta1, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
-                keybd_event(meta2, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+                // キーの押し下げをシミュレートする。
+                keybd_event(meta1, 0, 0, (UIntPtr)0);
+                keybd_event(meta2, 0, 0, (UIntPtr)0);
+                await Task.Delay(1);
+                keybd_event(key, 0, 0, (UIntPtr)0);
+
+                // キーの解放をシミュレートする。
+                keybd_event(key, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+                if (upf)
+                {
+                    keybd_event(meta1, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+                    keybd_event(meta2, 0, 2/*KEYEVENTF_KEYUP*/, (UIntPtr)0);
+                }
+            }
+            catch (Exception ex)
+            {
+                notice_textBox.AppendText(ex.Message);
             }
         }
 
         int AnyKey_flag = 0;
         private void RightKey_Click(object sender, EventArgs e)
         {
-            Rshortcut_textBox.Focus();
+            pictureBox1.Focus();
             keyhook.Install();
             AnyKey_flag = 1;
             Status_view(Properties.Resources.Status3);
+            this.Enabled = false;
         }
 
         private void LeftKey_Click(object sender, EventArgs e)
         {
-            Lshortcut_textBox.Focus();
+            pictureBox1.Focus();
             keyhook.Install();
             AnyKey_flag = 2;
             Status_view(Properties.Resources.Status4);
+            this.Enabled = false;
         }
 
         void keyboardHook_KeyDown(RamGecTools.KeyboardHook.VKeys key)
@@ -607,6 +614,7 @@ namespace RotController
             AnyKey_flag = 0;
             keyhook.Uninstall();
             KeyComb_Set();
+            this.Enabled = true;
         }
 
         private void RtsEnable_checkBox_CheckedChanged(object sender, EventArgs e)
@@ -668,7 +676,7 @@ namespace RotController
             {
                 LinkStatus_label.ForeColor = Color.Red;
                 LinkStatus_label.Text = "Disconnected";
-                operational_mode.Text = "Unknown";
+                operational_mode.Text = "unconnected";
                 return;
             }
 
@@ -732,7 +740,7 @@ namespace RotController
 
                     if (Ctrl_MODDE == 1) Ctrl_MODDE = 0; else Ctrl_MODDE = 1;
 
-                    if (Rcv_buf != "6")//ACK：0x06(6)を受信しなければ切断
+                    if (!Regex.IsMatch(Rcv_buf, "[0-9]"))//ACK：0x06(6)を受信しなければ切断//0～9に変更
                     {
                         Serial_Connect(PortList[i], 38400, Handshake.None);
                         notice_textBox.AppendText(PortList[i] + ": No response\r\n");
@@ -740,6 +748,7 @@ namespace RotController
 
                     if (serialPort1.IsOpen == true)
                     {
+                        DeviceNum_label.Text = Regex.Match(Rcv_buf, "[0-9]").Value;
                         LinkStatus_label.ForeColor = Color.Green;
                         LinkStatus_label.Text = "Connected";
                         notice_textBox.AppendText(PortList[i] + ": Received an ACK\r\n");
@@ -756,7 +765,7 @@ namespace RotController
             }
             if (serialPort1.IsOpen == false)
             {
-                operational_mode.Text = "Unknown";
+                operational_mode.Text = "unconnected";
             }
         }
 
@@ -813,7 +822,8 @@ namespace RotController
                 LinkStatus_label.ForeColor = Color.Red;
                 LinkStatus_label.Text = "Disconnected";
                 portName_label.Text = "NONE";
-                operational_mode.Text = "Unknown";
+                operational_mode.Text = "unconnected";
+                DeviceNum_label.Text = "---";
             }
         }
 
@@ -1022,6 +1032,7 @@ namespace RotController
 
         private void Save_Click(object sender, EventArgs e)
         {
+            KeyComb_Set();
             Settings.Write();
             Status_view(Properties.Resources.Status2);
             Change_Theme();
@@ -1029,12 +1040,16 @@ namespace RotController
 
         private void Form1_ClientSizeChanged(object sender, EventArgs e)
         {
+            if(Monitor_timer.Enabled == false)
+                Monitor_timer.Start();
             if (this.WindowState == System.Windows.Forms.FormWindowState.Minimized)
             {
                 // フォームが最小化の状態であればフォームを非表示にする
                 this.Hide();
                 // トレイリストのアイコンを表示する
                 notifyIcon1.Visible = true;
+                //最小化時はタイマーストップ
+                Monitor_timer.Stop();
             }
         }
 
@@ -1141,6 +1156,85 @@ namespace RotController
         private void Comb_ThemeColor_SelectedIndexChanged(object sender, EventArgs e)
         {
             color = Comb_ThemeColor.SelectedIndex;
+        }
+
+        private void OpenXML_Button_Click(object sender, EventArgs e)
+        {
+            var proc = new System.Diagnostics.Process();
+
+            proc.StartInfo.FileName = "notepad.exe";
+            proc.StartInfo.Arguments = Properties.Resources.ConfigFileName;
+            proc.Start();
+            this.Enabled = false;
+            proc.WaitForExit();
+
+            this.Enabled = true;
+            Settings.Read();
+            set_config();
+            //フォームを前面へ
+            this.Activate();
+        }
+
+        private void Send_button_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Write(textBox1.Text + "\n");
+                textBox1.Clear();
+            }
+        }
+
+        private void TextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                Send_button_Click(null,null);
+            }
+        }
+
+        private void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //EnterやEscapeキーでビープ音が鳴らないようにする
+            if (e.KeyChar == (char)Keys.Enter || e.KeyChar == (char)Keys.Escape)
+            {
+                e.Handled = true;
+            }
+        }
+        string tgt_processName = "";
+        private void Process_comboBox_Click(object sender, EventArgs e)
+        {
+            tgt_processName = "";
+            Process_comboBox.Items.Clear();
+            //全てのプロセスを列挙する
+            foreach (System.Diagnostics.Process p in System.Diagnostics.Process.GetProcesses())
+            {
+                //メインウィンドウのタイトルがある時だけ列挙する
+                if (p.MainWindowTitle.Length != 0)
+                {
+                    //Console.WriteLine("プロセス名:" + p.ProcessName);
+                    //Console.WriteLine("タイトル名:" + p.MainWindowTitle);
+                    Process_comboBox.Items.Add(p.ProcessName);
+                }
+            }
+        }
+
+        private void Active_Window(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tgt_processName != "")
+                    Microsoft.VisualBasic.Interaction.AppActivate(tgt_processName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void Process_comboBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            tgt_processName = Process_comboBox.SelectedItem.ToString();
         }
     }
 }

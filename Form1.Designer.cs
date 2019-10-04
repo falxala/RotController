@@ -45,6 +45,8 @@
             this.AutoConnect_Button = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.Process_comboBox = new System.Windows.Forms.ComboBox();
+            this.OpenXML_Button = new System.Windows.Forms.Button();
             this.Left_label = new System.Windows.Forms.Label();
             this.Right_label = new System.Windows.Forms.Label();
             this.Minimize = new System.Windows.Forms.Button();
@@ -66,9 +68,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.RotR = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.Send_button = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.DeviceNum_label = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.portName_label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -95,6 +102,7 @@
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -106,7 +114,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(8, 97);
+            this.label1.Location = new System.Drawing.Point(9, 113);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(32, 18);
             this.label1.TabIndex = 0;
@@ -116,7 +124,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(8, 147);
+            this.label2.Location = new System.Drawing.Point(9, 163);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 18);
             this.label2.TabIndex = 1;
@@ -126,7 +134,7 @@
             // 
             this.cmbPortName.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.cmbPortName.FormattingEnabled = true;
-            this.cmbPortName.Location = new System.Drawing.Point(11, 118);
+            this.cmbPortName.Location = new System.Drawing.Point(12, 134);
             this.cmbPortName.Name = "cmbPortName";
             this.cmbPortName.Size = new System.Drawing.Size(276, 26);
             this.cmbPortName.TabIndex = 3;
@@ -135,7 +143,7 @@
             // 
             this.cmbBaudRate.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.cmbBaudRate.FormattingEnabled = true;
-            this.cmbBaudRate.Location = new System.Drawing.Point(11, 168);
+            this.cmbBaudRate.Location = new System.Drawing.Point(12, 184);
             this.cmbBaudRate.Name = "cmbBaudRate";
             this.cmbBaudRate.Size = new System.Drawing.Size(276, 26);
             this.cmbBaudRate.TabIndex = 4;
@@ -148,7 +156,7 @@
             // 
             this.cmbHandShake.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.cmbHandShake.FormattingEnabled = true;
-            this.cmbHandShake.Location = new System.Drawing.Point(11, 218);
+            this.cmbHandShake.Location = new System.Drawing.Point(12, 234);
             this.cmbHandShake.Name = "cmbHandShake";
             this.cmbHandShake.Size = new System.Drawing.Size(276, 26);
             this.cmbHandShake.TabIndex = 5;
@@ -157,7 +165,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label3.Location = new System.Drawing.Point(8, 197);
+            this.label3.Location = new System.Drawing.Point(9, 213);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 18);
             this.label3.TabIndex = 6;
@@ -165,20 +173,23 @@
             // 
             // rcvTextBox
             // 
+            this.rcvTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rcvTextBox.BackColor = System.Drawing.SystemColors.MenuText;
             this.rcvTextBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.rcvTextBox.ForeColor = System.Drawing.Color.Lime;
-            this.rcvTextBox.Location = new System.Drawing.Point(291, 34);
+            this.rcvTextBox.Location = new System.Drawing.Point(297, 69);
             this.rcvTextBox.Multiline = true;
             this.rcvTextBox.Name = "rcvTextBox";
             this.rcvTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.rcvTextBox.Size = new System.Drawing.Size(377, 151);
+            this.rcvTextBox.Size = new System.Drawing.Size(377, 125);
             this.rcvTextBox.TabIndex = 7;
             // 
             // connectButton
             // 
             this.connectButton.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.connectButton.Location = new System.Drawing.Point(11, 289);
+            this.connectButton.Location = new System.Drawing.Point(12, 307);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(75, 26);
             this.connectButton.TabIndex = 8;
@@ -190,7 +201,7 @@
             // 
             this.RtsEnable_checkBox.AutoSize = true;
             this.RtsEnable_checkBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.RtsEnable_checkBox.Location = new System.Drawing.Point(11, 250);
+            this.RtsEnable_checkBox.Location = new System.Drawing.Point(12, 266);
             this.RtsEnable_checkBox.Name = "RtsEnable_checkBox";
             this.RtsEnable_checkBox.Size = new System.Drawing.Size(84, 22);
             this.RtsEnable_checkBox.TabIndex = 9;
@@ -204,11 +215,10 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(11, 75);
+            this.button1.Location = new System.Drawing.Point(11, 97);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(276, 124);
+            this.button1.Size = new System.Drawing.Size(276, 102);
             this.button1.TabIndex = 10;
             this.button1.Text = "CHANGE MODE ";
             this.button1.UseVisualStyleBackColor = false;
@@ -216,7 +226,7 @@
             // 
             // Port_Update_Button
             // 
-            this.Port_Update_Button.Location = new System.Drawing.Point(173, 289);
+            this.Port_Update_Button.Location = new System.Drawing.Point(174, 307);
             this.Port_Update_Button.Name = "Port_Update_Button";
             this.Port_Update_Button.Size = new System.Drawing.Size(75, 26);
             this.Port_Update_Button.TabIndex = 12;
@@ -227,7 +237,7 @@
             // AutoConnect_Button
             // 
             this.AutoConnect_Button.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.AutoConnect_Button.Location = new System.Drawing.Point(92, 289);
+            this.AutoConnect_Button.Location = new System.Drawing.Point(93, 307);
             this.AutoConnect_Button.Name = "AutoConnect_Button";
             this.AutoConnect_Button.Size = new System.Drawing.Size(75, 26);
             this.AutoConnect_Button.TabIndex = 13;
@@ -237,18 +247,23 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(-5, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(698, 375);
+            this.tabControl1.Size = new System.Drawing.Size(698, 381);
             this.tabControl1.TabIndex = 14;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.Process_comboBox);
+            this.tabPage1.Controls.Add(this.OpenXML_Button);
             this.tabPage1.Controls.Add(this.Left_label);
             this.tabPage1.Controls.Add(this.Right_label);
             this.tabPage1.Controls.Add(this.Minimize);
@@ -269,30 +284,58 @@
             this.tabPage1.Controls.Add(this.RotR);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.pictureBox2);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(690, 349);
+            this.tabPage1.Size = new System.Drawing.Size(690, 355);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
+            // 
+            // Process_comboBox
+            // 
+            this.Process_comboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Process_comboBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Process_comboBox.FormattingEnabled = true;
+            this.Process_comboBox.Location = new System.Drawing.Point(244, 211);
+            this.Process_comboBox.Name = "Process_comboBox";
+            this.Process_comboBox.Size = new System.Drawing.Size(283, 26);
+            this.Process_comboBox.TabIndex = 46;
+            this.Process_comboBox.SelectedValueChanged += new System.EventHandler(this.Process_comboBox_SelectedValueChanged);
+            this.Process_comboBox.Click += new System.EventHandler(this.Process_comboBox_Click);
+            // 
+            // OpenXML_Button
+            // 
+            this.OpenXML_Button.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.OpenXML_Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.OpenXML_Button.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
+            this.OpenXML_Button.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
+            this.OpenXML_Button.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.OpenXML_Button.Location = new System.Drawing.Point(548, 205);
+            this.OpenXML_Button.Name = "OpenXML_Button";
+            this.OpenXML_Button.Size = new System.Drawing.Size(126, 60);
+            this.OpenXML_Button.TabIndex = 45;
+            this.OpenXML_Button.Text = "OpenXML";
+            this.OpenXML_Button.UseVisualStyleBackColor = false;
+            this.OpenXML_Button.Click += new System.EventHandler(this.OpenXML_Button_Click);
             // 
             // Left_label
             // 
             this.Left_label.AutoSize = true;
-            this.Left_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Left_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Left_label.Location = new System.Drawing.Point(303, 84);
             this.Left_label.Name = "Left_label";
-            this.Left_label.Size = new System.Drawing.Size(84, 46);
+            this.Left_label.Size = new System.Drawing.Size(90, 46);
             this.Left_label.TabIndex = 22;
             this.Left_label.Text = "Counter\r\nClockWise";
             // 
             // Right_label
             // 
             this.Right_label.AutoSize = true;
-            this.Right_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Right_label.Location = new System.Drawing.Point(575, 84);
+            this.Right_label.Font = new System.Drawing.Font("メイリオ", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.Right_label.Location = new System.Drawing.Point(583, 84);
             this.Right_label.Name = "Right_label";
-            this.Right_label.Size = new System.Drawing.Size(84, 23);
+            this.Right_label.Size = new System.Drawing.Size(90, 23);
             this.Right_label.TabIndex = 21;
             this.Right_label.Text = "ClockWise";
             // 
@@ -302,11 +345,10 @@
             this.Minimize.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Minimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White;
             this.Minimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Silver;
-            this.Minimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.Minimize.Font = new System.Drawing.Font("メイリオ", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.Minimize.Location = new System.Drawing.Point(491, 282);
+            this.Minimize.Location = new System.Drawing.Point(548, 273);
             this.Minimize.Name = "Minimize";
-            this.Minimize.Size = new System.Drawing.Size(177, 43);
+            this.Minimize.Size = new System.Drawing.Size(126, 60);
             this.Minimize.TabIndex = 43;
             this.Minimize.Text = "Minimize";
             this.Minimize.UseVisualStyleBackColor = false;
@@ -319,33 +361,33 @@
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(11, 19);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(276, 43);
+            this.panel2.Size = new System.Drawing.Size(276, 72);
             this.panel2.TabIndex = 42;
             // 
             // operational_mode
             // 
             this.operational_mode.AutoSize = true;
-            this.operational_mode.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.operational_mode.Location = new System.Drawing.Point(122, 9);
+            this.operational_mode.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.operational_mode.Location = new System.Drawing.Point(107, 21);
             this.operational_mode.Name = "operational_mode";
-            this.operational_mode.Size = new System.Drawing.Size(82, 24);
+            this.operational_mode.Size = new System.Drawing.Size(155, 31);
             this.operational_mode.TabIndex = 40;
-            this.operational_mode.Text = "unknown";
+            this.operational_mode.Text = "unconnected";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(3, 9);
+            this.label4.Font = new System.Drawing.Font("メイリオ", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label4.Location = new System.Drawing.Point(10, 21);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 24);
+            this.label4.Size = new System.Drawing.Size(91, 31);
             this.label4.TabIndex = 41;
             this.label4.Text = "Mode  :";
             // 
             // button5
             // 
             this.button5.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button5.Location = new System.Drawing.Point(409, 266);
+            this.button5.Location = new System.Drawing.Point(477, 265);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(50, 60);
             this.button5.TabIndex = 39;
@@ -419,7 +461,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label7.Location = new System.Drawing.Point(15, 215);
+            this.label7.Location = new System.Drawing.Point(13, 210);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(143, 24);
             this.label7.TabIndex = 29;
@@ -428,22 +470,22 @@
             // button4
             // 
             this.button4.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button4.Location = new System.Drawing.Point(351, 301);
+            this.button4.Location = new System.Drawing.Point(419, 300);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(52, 25);
             this.button4.TabIndex = 28;
-            this.button4.Text = "Edit";
+            this.button4.Text = "Input";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.LeftKey_Click);
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button3.Location = new System.Drawing.Point(351, 266);
+            this.button3.Location = new System.Drawing.Point(419, 265);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(52, 25);
             this.button3.TabIndex = 27;
-            this.button3.Text = "Edit";
+            this.button3.Text = "Iinput";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.RightKey_Click);
             // 
@@ -452,8 +494,7 @@
             this.Lshortcut_textBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Lshortcut_textBox.Location = new System.Drawing.Point(244, 301);
             this.Lshortcut_textBox.Name = "Lshortcut_textBox";
-            this.Lshortcut_textBox.ReadOnly = true;
-            this.Lshortcut_textBox.Size = new System.Drawing.Size(101, 25);
+            this.Lshortcut_textBox.Size = new System.Drawing.Size(169, 25);
             this.Lshortcut_textBox.TabIndex = 26;
             this.Lshortcut_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Lshortcut_textBox.TextChanged += new System.EventHandler(this.Lshortcut_textBox_TextChanged);
@@ -463,8 +504,7 @@
             this.Rshortcut_textBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Rshortcut_textBox.Location = new System.Drawing.Point(244, 266);
             this.Rshortcut_textBox.Name = "Rshortcut_textBox";
-            this.Rshortcut_textBox.ReadOnly = true;
-            this.Rshortcut_textBox.Size = new System.Drawing.Size(101, 25);
+            this.Rshortcut_textBox.Size = new System.Drawing.Size(169, 25);
             this.Rshortcut_textBox.TabIndex = 25;
             this.Rshortcut_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.Rshortcut_textBox.TextChanged += new System.EventHandler(this.Rshortcut_textBox_TextChanged);
@@ -473,7 +513,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label6.Location = new System.Drawing.Point(7, 300);
+            this.label6.Location = new System.Drawing.Point(13, 300);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(78, 24);
             this.label6.TabIndex = 20;
@@ -483,7 +523,7 @@
             // 
             this.RotR.AutoSize = true;
             this.RotR.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.RotR.Location = new System.Drawing.Point(18, 268);
+            this.RotR.Location = new System.Drawing.Point(24, 266);
             this.RotR.Name = "RotR";
             this.RotR.Size = new System.Drawing.Size(67, 24);
             this.RotR.TabIndex = 19;
@@ -496,14 +536,28 @@
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(293, 19);
+            this.pictureBox1.Location = new System.Drawing.Point(299, 19);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(375, 180);
             this.pictureBox1.TabIndex = 18;
             this.pictureBox1.TabStop = false;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox2.InitialImage = null;
+            this.pictureBox2.Location = new System.Drawing.Point(11, 205);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(525, 128);
+            this.pictureBox2.TabIndex = 44;
+            this.pictureBox2.TabStop = false;
+            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.Send_button);
+            this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.panel1);
             this.tabPage2.Controls.Add(this.label11);
@@ -523,10 +577,34 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(690, 349);
+            this.tabPage2.Size = new System.Drawing.Size(690, 355);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Serial";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // Send_button
+            // 
+            this.Send_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.Send_button.Location = new System.Drawing.Point(627, 14);
+            this.Send_button.Name = "Send_button";
+            this.Send_button.Size = new System.Drawing.Size(47, 25);
+            this.Send_button.TabIndex = 27;
+            this.Send_button.Text = "Send";
+            this.Send_button.UseVisualStyleBackColor = true;
+            this.Send_button.Click += new System.EventHandler(this.Send_button_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.textBox1.Location = new System.Drawing.Point(297, 14);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(324, 25);
+            this.textBox1.TabIndex = 26;
+            this.textBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox1_KeyDown);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox1_KeyPress);
             // 
             // label17
             // 
@@ -542,20 +620,42 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.DeviceNum_label);
             this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.portName_label);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.LinkStatus_label);
-            this.panel1.Location = new System.Drawing.Point(9, 35);
+            this.panel1.Location = new System.Drawing.Point(12, 35);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(276, 50);
+            this.panel1.Size = new System.Drawing.Size(276, 75);
             this.panel1.TabIndex = 24;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label9.Location = new System.Drawing.Point(4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(89, 24);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "DeviceNo.";
+            // 
+            // DeviceNum_label
+            // 
+            this.DeviceNum_label.AutoSize = true;
+            this.DeviceNum_label.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.DeviceNum_label.Location = new System.Drawing.Point(113, 0);
+            this.DeviceNum_label.Name = "DeviceNum_label";
+            this.DeviceNum_label.Size = new System.Drawing.Size(31, 24);
+            this.DeviceNum_label.TabIndex = 20;
+            this.DeviceNum_label.Text = "---";
             // 
             // label16
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label16.Location = new System.Drawing.Point(3, 0);
+            this.label16.Location = new System.Drawing.Point(4, 24);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(79, 24);
             this.label16.TabIndex = 19;
@@ -565,7 +665,7 @@
             // 
             this.portName_label.AutoSize = true;
             this.portName_label.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.portName_label.Location = new System.Drawing.Point(112, 0);
+            this.portName_label.Location = new System.Drawing.Point(113, 24);
             this.portName_label.Name = "portName_label";
             this.portName_label.Size = new System.Drawing.Size(43, 24);
             this.portName_label.TabIndex = 18;
@@ -575,7 +675,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label5.Location = new System.Drawing.Point(3, 24);
+            this.label5.Location = new System.Drawing.Point(4, 48);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(91, 24);
             this.label5.TabIndex = 16;
@@ -585,7 +685,7 @@
             // 
             this.LinkStatus_label.AutoSize = true;
             this.LinkStatus_label.Font = new System.Drawing.Font("メイリオ", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.LinkStatus_label.Location = new System.Drawing.Point(112, 24);
+            this.LinkStatus_label.Location = new System.Drawing.Point(113, 48);
             this.LinkStatus_label.Name = "LinkStatus_label";
             this.LinkStatus_label.Size = new System.Drawing.Size(56, 24);
             this.LinkStatus_label.TabIndex = 17;
@@ -593,9 +693,11 @@
             // 
             // label11
             // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label11.Location = new System.Drawing.Point(292, 196);
+            this.label11.Location = new System.Drawing.Point(294, 202);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(45, 18);
             this.label11.TabIndex = 16;
@@ -603,9 +705,11 @@
             // 
             // label10
             // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label10.Location = new System.Drawing.Point(291, 14);
+            this.label10.Location = new System.Drawing.Point(294, 48);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(85, 18);
             this.label10.TabIndex = 15;
@@ -613,10 +717,12 @@
             // 
             // notice_textBox
             // 
+            this.notice_textBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.notice_textBox.BackColor = System.Drawing.SystemColors.HotTrack;
             this.notice_textBox.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.notice_textBox.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.notice_textBox.Location = new System.Drawing.Point(291, 217);
+            this.notice_textBox.Location = new System.Drawing.Point(297, 223);
             this.notice_textBox.Multiline = true;
             this.notice_textBox.Name = "notice_textBox";
             this.notice_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -635,7 +741,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(690, 349);
+            this.tabPage3.Size = new System.Drawing.Size(690, 355);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Setting";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -761,7 +867,7 @@
             this.statusStrip1.BackColor = System.Drawing.Color.White;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 352);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 358);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(685, 23);
             this.statusStrip1.TabIndex = 15;
@@ -778,11 +884,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(685, 375);
+            this.ClientSize = new System.Drawing.Size(685, 381);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tabControl1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(701, 414);
+            this.MinimumSize = new System.Drawing.Size(701, 420);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -794,6 +900,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -870,6 +977,13 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ToolStripMenuItem 表示ToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button OpenXML_Button;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button Send_button;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label DeviceNum_label;
+        private System.Windows.Forms.ComboBox Process_comboBox;
     }
 }
 

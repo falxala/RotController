@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<temp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <mode>0</mode>
-  <key>
-    <string>0</string>
-    <string>NONE</string>
-    <string>0</string>
-    <string>NONE</string>
-  </key>
-  <color>0</color>
-</temp>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <動作モード>0</動作モード>
+  <キープリセット1>2</キープリセット1>
+  <キープリセット1>TAB</キープリセット1>
+  <キープリセット1>5</キープリセット1>
+  <キープリセット1>TAB</キープリセット1>
+  <アプリケーション配色>0</アプリケーション配色>
+</Config>

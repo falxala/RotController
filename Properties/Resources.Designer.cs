@@ -61,6 +61,15 @@ namespace RotController.Properties {
         }
         
         /// <summary>
+        ///   RotController.xml に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string ConfigFileName {
+            get {
+                return ResourceManager.GetString("ConfigFileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   This application contains the following code : Low level Windows keyboard hook class [Ramunas Geciauskas, http://geciauskas.com]
         ///
         /// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is fur [残りの文字列は切り詰められました]&quot;; に類似しているローカライズされた文字列を検索します。
