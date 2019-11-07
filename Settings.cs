@@ -13,7 +13,8 @@ namespace RotController
     /// </summary>
     public class Settings
     {
-        static string path = System.IO.Path.GetFileNameWithoutExtension((Assembly.GetExecutingAssembly()).Location);//アプリケーション名取得
+        static public string path = System.IO.Path.GetFileNameWithoutExtension(
+            (Assembly.GetExecutingAssembly()).Location);//アプリケーション名取得
         //保存元のファイル名
         static string fileName = path + ".xml";
 
@@ -25,6 +26,8 @@ namespace RotController
             obj.mode = Form1.mode;
             obj.key = Form1.key;
             obj.color = Form1.color;
+            obj.prosess_name = Form1.tgt_processName;
+            obj.runApp_path = Form1.runApp_path;
 
 
             //XmlSerializerオブジェクトを作成
@@ -68,6 +71,8 @@ namespace RotController
                     Form1.mode = obj.mode;
                     Form1.key = obj.key;
                     Form1.color = obj.color;
+                    Form1.tgt_processName = obj.prosess_name;
+                    Form1.runApp_path = obj.runApp_path;
 
                 }
                 catch (Exception)
@@ -94,6 +99,10 @@ namespace RotController
             public string[] key;
             [System.Xml.Serialization.XmlElement("アプリケーション配色")]
             public int color;
+            [System.Xml.Serialization.XmlElement("TARGET_PROCESS")]
+            public string prosess_name;
+            [System.Xml.Serialization.XmlElement("APPLICATION")]
+            public string runApp_path;
         }
     }
 }

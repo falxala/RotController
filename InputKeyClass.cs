@@ -19,6 +19,12 @@ namespace RotController
 
 
         //enumをジェネリックで使いたい
+        /// <summary>
+        /// 仮想キーコードを返す
+        /// </summary>
+        /// <typeparam name="TEnum"></typeparam>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static byte VkEnum<TEnum>(string str) where TEnum : struct
         {
             foreach (TEnum value in Enum.GetValues(typeof(TEnum)))

@@ -91,6 +91,44 @@ namespace RotController.Properties {
         }
         
         /// <summary>
+        ///   設定ファイルが破損しています に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string Exception1 {
+            get {
+                return ResourceManager.GetString("Exception1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap Folder {
+            get {
+                object obj = ResourceManager.GetObject("Folder", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        /// </summary>
+        public static System.Drawing.Bitmap illust3 {
+            get {
+                object obj = ResourceManager.GetObject("illust3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   利用可能なポートがありません。 に類似しているローカライズされた文字列を検索します。
+        /// </summary>
+        public static string SerialError1 {
+            get {
+                return ResourceManager.GetString("SerialError1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   ソフトウェアが起動されました に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Status1 {
@@ -127,7 +165,7 @@ namespace RotController.Properties {
         }
         
         /// <summary>
-        ///   自動起動を有効にしました に類似しているローカライズされた文字列を検索します。
+        ///   ボタン押下時のキーを設定してください に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Status5 {
             get {
@@ -136,7 +174,7 @@ namespace RotController.Properties {
         }
         
         /// <summary>
-        ///   デバイスはハードウェアによって制御されています に類似しているローカライズされた文字列を検索します。
+        ///   自動起動を有効にしました に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Status6 {
             get {
@@ -145,7 +183,7 @@ namespace RotController.Properties {
         }
         
         /// <summary>
-        ///   デバイスはソフトウェアによって制御されています に類似しているローカライズされた文字列を検索します。
+        ///   デバイスはハードウェアによって制御されています に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string Status7 {
             get {
@@ -154,12 +192,11 @@ namespace RotController.Properties {
         }
         
         /// <summary>
-        ///   型 System.Drawing.Bitmap のローカライズされたリソースを検索します。
+        ///   デバイスはソフトウェアによって制御されています に類似しているローカライズされた文字列を検索します。
         /// </summary>
-        public static System.Drawing.Bitmap イラスト3 {
+        public static string Status8 {
             get {
-                object obj = ResourceManager.GetObject("イラスト3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                return ResourceManager.GetString("Status8", resourceCulture);
             }
         }
     }

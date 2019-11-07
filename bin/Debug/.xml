@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <動作モード>0</動作モード>
+  <キープリセット1>0</キープリセット1>
+  <キープリセット1>NONE</キープリセット1>
+  <キープリセット1>0</キープリセット1>
+  <キープリセット1>NONE</キープリセット1>
+  <アプリケーション配色>0</アプリケーション配色>
+  <PROCESS />
+</Config>
